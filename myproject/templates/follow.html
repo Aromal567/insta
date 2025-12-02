@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Follow Requests • Instagram</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #fafafa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #fff;
+      border-bottom: 1px solid #dbdbdb;
+      padding: 10px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    nav a.navbar-brand {
+      color: #262626;
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+
+    nav a.nav-link {
+      color: #262626 !important;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+    }
+
+    nav a.nav-link:hover {
+      color: #0095f6 !important;
+    }
+
+    /* Follow Request Card */
+    .request-card {
+      background: #fff;
+      border: 1px solid #dbdbdb;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 15px auto;
+      max-width: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.2s;
+    }
+
+    .request-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-info img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .username {
+      font-weight: 600;
+      margin: 0;
+      color: #262626;
+    }
+
+    .status {
+      font-size: 14px;
+      color: #8e8e8e;
+      margin: 0;
+    }
+
+    .follow-btn {
+      background-color: #0095f6;
+      color: white;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 6px 16px;
+      border: none;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .follow-btn:hover {
+      background-color: #0078d4;
+      color: #fff;
+    }
+
+    .friend-btn {
+      background-color: #e0e0e0;
+      color: #555;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 6px 16px;
+      border: none;
+      text-decoration: none;
+      cursor: default;
+    }
+
+    .container {
+      margin-top: 90px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i class="bi bi-instagram"></i> Instagram</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="home"><i class="bi bi-house-door-fill"></i> </a></li>
+          <li class="nav-item"><a class="nav-link" href="logout"><i class="bi bi-box-arrow-right"></i> </a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h4 class="text-center mb-4">Follow Requests</h4>
+
+    {% for i in result %}
+      <div class="request-card">
+        <div class="profile-info">
+          <img src="{{ i.USER_1.image.url }}" alt="Profile" class="profile-pic">
+          <div>
+            <p class="username">{{ i.USER_1.firstname }} {{ i.USER_1.lastname }}</p>
+            <p class="status">{{ i.status }}</p>
+          </div>
+        </div>
+
+        {% if i.status == 'pending' %}
+          <a href="{% url 'followback' i.id %}" class="follow-btn">Follow Back</a>
+        {% else %}
+          <span class="friend-btn">Following</span>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p class="text-center text-muted">No follow requests found.</p>
+    {% endfor %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

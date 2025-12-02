@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comments | Instagram</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #fafafa;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding-top: 50px;
+      color: #262626;
+    }
+     nav {
+  background: linear-gradient(45deg, 
+              #feda75,
+              #fa7e1e, 
+              #d62976,  
+              #962fbf,  
+              #4f5bd5   
+            );
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+    .navbar-brand,
+    .nav-link {
+      color: black;
+      font-weight: 500;
+    }
+
+    .comment-container {
+      max-width: 620px;
+      margin: auto;
+      border: 1px solid #dbdbdb;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .comment-container:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .comment-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid #dbdbdb;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .comment-header h5 {
+      font-weight: 600;
+      font-size: 17px;
+      margin: 0;
+      color: #262626;
+      margin-left: 230px;
+    }
+
+    .comment-header i {
+      color: #262626;
+    }
+
+    .comment-body {
+      padding: 16px 18px;
+      background-color: #fff;
+    }
+
+    .comment {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .comment img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      margin-right: 12px;
+      border: 1px solid #ddd;
+      object-fit: cover;
+    }
+
+    .comment strong {
+      font-weight: 600;
+      color: #262626;
+      margin-right: 6px;
+      font-size: 14px;
+    }
+
+    .comment-content {
+      background: #f2f3f5;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+      transition: background 0.3s;
+    }
+
+    .comment-content:hover {
+      background: #e9ecef;
+    }
+
+    .comment-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 12px;
+      color: #8e8e8e;
+    }
+
+    .comment-actions i {
+      cursor: pointer;
+      color: #8e8e8e;
+      transition: color 0.2s ease;
+    }
+
+    .comment-actions i:hover {
+      color: #ed4956;
+    }
+
+    .no-comments {
+      text-align: center;
+      padding: 40px;
+      color: #8e8e8e;
+      font-size: 15px;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #8e8e8e;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-instagram"></i> Instagram
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="comment-container mt-5">
+    <!-- Header -->
+    <div class="comment-header">
+      <h5><i class="bi bi-chat-dots me-2"></i>Comments</h5>
+    </div>
+
+    <!-- Comments -->
+    <div class="comment-body">
+      {% for i in result %}
+      <div class="comment">
+        <img src="{{ i.USER.image.url }}" alt="User">
+        <div class="w-100">
+          <div>
+            <strong>{{ i.USER.firstname }}</strong>
+          </div>
+          <div class="comment-content">
+            <p class="mb-1">{{ i.comment }}</p>
+          </div>
+          <div class="comment-actions">
+            <span>{{ i.date_time }} ago</span>
+            <i class="bi bi-heart"></i>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="no-comments">No comments yet. Be the first to comment!</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <p class="footer-note">© 2025 Instagram — Clone UI Design</p>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

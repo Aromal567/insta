@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Posts</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 40px;
+    }
+
+    .container {
+      max-width: 1000px;
+    }
+
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      object-fit: cover;
+      height: 200px;
+      width: 100%;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      transition: 0.2s;
+    }
+
+    .delete-btn:hover {
+      background-color: #bb2d3b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2 class="text-center mb-4"><i class="bi bi-person-vcard"></i> All Posts</h2>
+
+    <div class="row g-4">
+      {% for i in result %}
+      <div class="col-md-4 col-sm-6">
+        <div class="card">
+          <img src="{{ i.image.url }}" alt="Doctor Image">
+
+          <div class="card-body">
+            <h5 class="card-title">{{i.USER.firstname}}{{i.USER.lastname}}{{ i.title }}</h5>
+
+            <div class="text-end">
+              <a href="{% url 'admindltpost' i.id %}" class="delete-btn">
+                <i class="bi bi-trash"></i> Delete
+              </a><br><br>
+               <a href="{% url 'mypostedit' i.id  %}" class="delete-btn">
+                <i class="bi bi-pencil"></i> Edit
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center text-muted mt-4">No posts available.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

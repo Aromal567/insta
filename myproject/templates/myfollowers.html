@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Followers • Instagram</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #fafafa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 70px;
+    }
+
+    /* Navbar */
+    nav.navbar {
+      background-color: #fff; /* plain white */
+      border-bottom: 1px solid #dbdbdb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      padding: 10px 20px;
+    }
+    nav a.navbar-brand {
+      font-weight: bold;
+      color: #262626 !important;
+    }
+    nav .nav-link {
+      color: #262626 !important;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    nav .nav-link:hover {
+      color: #0095f6 !important;
+    }
+
+    /* Followers Container */
+    .followers-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 20px;
+    }
+
+    .follower-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding: 10px 15px;
+      border-radius: 12px;
+      border: 1px solid #eee;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .follower-card:hover {
+      background: #f0f0f0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .follower-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .follower-card img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .follower-name {
+      font-weight: 500;
+      color: #262626;
+      margin: 0;
+    }
+
+    /* Follow button */
+    .follow-btn {
+      font-size: 0.9rem;
+      padding: 6px 18px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 600;
+    }
+    .following {
+      background-color: #0095f6;
+      color: #fff;
+    }
+    .following:hover {
+      background-color: #0078d4;
+    }
+    .follow {
+      background-color: #00c853;
+      color: #fff;
+    }
+    .follow:hover {
+      background-color: #00b24f;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i class="bi bi-instagram"></i> Instagram</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="home"><i class="bi bi-house-door-fill"></i> </a></li>
+          <li class="nav-item"><a class="nav-link" href="logout"><i class="bi bi-box-arrow-right"></i> </a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Followers List -->
+  <div class="followers-container">
+    <h3 class="text-center mb-4">My Followers</h3>
+
+    {% if result %}
+      {% for friend in result %}
+        <div class="follower-card">
+          <div class="follower-info">
+            {% if friend.USER_1.image %}
+              <img src="{{ friend.USER_1.image.url }}" alt="{{ friend.USER_1.firstname }}">
+            {% else %}
+              <img src="{% static 'image/default_profile.jpg' %}" alt="No image">
+            {% endif %}
+            <div>
+              <p class="follower-name">@{{ friend.USER_1.firstname }} {{ friend.USER_1.lastname }}</p>
+            </div>
+          </div>
+          <button class="follow-btn following">Following</button>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-center text-muted">You have no followers yet.</p>
+    {% endif %}
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
